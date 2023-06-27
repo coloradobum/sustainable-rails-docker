@@ -11,6 +11,9 @@ PGPASSWORD=password psql --host=db --username=postgres --port=5432
 
 bin/rake db:drop db:create
 
+# to startup rails
+bin/rails s -b 0.0.0.0
+
 
 look in test/README.md for how to dump the database
 to connect
