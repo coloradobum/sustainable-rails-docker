@@ -32,7 +32,7 @@ services:
     # by whatever is running in the container on EXPOSE
     ports:
       - "%LOCAL_PORT%:%EXPOSE%"
-      - "22:22"
+      - "23:22"
 
     # This maps the WORKDIR directory inside the Docker
     # container to our hosts directory, VOLUME_SOURCE
@@ -65,7 +65,7 @@ services:
     # The "postgres" part tells Docker
     # to look in the postgres "docker repo".
     #
-    # The 15 part is the "tag" inside that 
+    # The 15 part is the "tag" inside that
     # repo, representing the image to fetch.
     # Fortunately, it's the same as the version
     # of Postgres we want.
@@ -75,11 +75,12 @@ services:
     # the 13 tag and you can click through
     # to see the Dockerfile that built the image.
     #
-    # Lastly, if you scroll down to the part 
+    # Lastly, if you scroll down to the part
     # titled "Environment Variables", you
     # can see the default values for
     # connecting to postgres.
-    image: arm64v8/postgres:15
+    #image: arm64v8/postgres:15
+    image: amd64/postgres:15
     # We don't want to pull this big image every time
     pull_policy: "missing"
     # In Postgres 15, there is no default value for the password.
@@ -88,11 +89,14 @@ services:
     # "postgres" as the password
     environment:
       POSTGRES_PASSWORD: postgres
+    ports:
+      - "5433:5432"
   # Here, we set up Redis which we don't need to use in the book
   # until we start talking about background jobs.  Like the
   # Postgres block above, this starts up a Redis server using 6.x.x
   redis:
-    image: arm64v8/redis:6
+    #image: arm64v8/redis:6
+    image: amd64/redis:6
     # We don't want to pull this big image every time
     pull_policy: "missing"
 # vim: ft=yaml nospell
